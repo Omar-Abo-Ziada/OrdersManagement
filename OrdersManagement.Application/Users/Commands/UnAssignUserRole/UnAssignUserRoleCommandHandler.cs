@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
+using OrdersManagement.Application.Helpers;
 using MyResturants.Domain.Entities;
 using MyResturants.Domain.Exceptions;
 
 namespace MyResturants.Application.Users.Commands.UnAssignUserRole;
 
 public class UnAssignUserRoleCommandHandler
-     (ILogger<UnAssignUserRoleCommandHandler> logger,
+     (ILoggerHelper<UnAssignUserRoleCommandHandler> logger,
     UserManager<User> userManager,
-    RoleManager<IdentityRole> roleManager) : IRequestHandler<UnAssignUserRoleCommand>
+    RoleManager<IdentityRole<int>> roleManager) : IRequestHandler<UnAssignUserRoleCommand>
 {
     public async Task Handle(UnAssignUserRoleCommand request, CancellationToken cancellationToken)
     {
@@ -19,7 +19,7 @@ public class UnAssignUserRoleCommandHandler
             ?? throw new CustomNotFoundException(nameof(User), request.UserEmail);
 
         var role = await roleManager.FindByNameAsync(request.UserRole)
-            ?? throw new CustomNotFoundException(nameof(IdentityRole), request.UserRole);
+            ?? throw new CustomNotFoundException(nameof(IdentityRole<int>), request.UserRole);
 
         await userManager.RemoveFromRoleAsync(user, role.Name!);
     }

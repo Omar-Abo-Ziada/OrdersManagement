@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Logging;
+using OrdersManagement.Application.Helpers;
 using MyResturants.Domain.Entities;
 using MyResturants.Domain.Exceptions;
 
 namespace MyResturants.Application.Users.Commands.UpdateUserDetails;
 
 internal class UpdateUserDetailsCommandHandler 
-    (ILogger<UpdateUserDetailsCommandHandler> logger ,
+    (ILoggerHelper<UpdateUserDetailsCommandHandler> logger ,
     IUserContext userContext , IUserStore<User> userStore)
     : IRequestHandler<UpdateUserDetailsCommand>
 {

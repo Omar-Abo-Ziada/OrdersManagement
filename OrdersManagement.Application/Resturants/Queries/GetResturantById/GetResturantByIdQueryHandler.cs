@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using MediatR;
+using OrdersManagement.Application.Helpers;
 using MyResturants.Application.Resturants.Dtos;
 using MyResturants.Domain.Entities;
 using MyResturants.Domain.Exceptions;
@@ -9,7 +8,7 @@ using MyResturants.Domain.Repositories;
 namespace MyResturants.Application.Resturants.Queries.GetResturantById;
 
 public class GetResturantByIdQueryHandler 
-    (ILogger<GetResturantByIdQueryHandler> logger , IMapper mapper , IResturantRepository resturantRepository)
+    (ILoggerHelper<GetResturantByIdQueryHandler> logger , IMapperHelper mapper , IResturantRepository resturantRepository)
     : IRequestHandler<GetResturantByIdQuery, ResturantDto>
 {
     public async Task<ResturantDto> Handle(GetResturantByIdQuery request, CancellationToken cancellationToken)

@@ -1,14 +1,13 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using MediatR;
+using OrdersManagement.Application.Helpers;
 using MyResturants.Domain.Exceptions;
 using OrdersManagement.Domain.Repositories;
 
 namespace MyResturants.Application.Dishes.Commands.CreateDish;
 
 public class CreateDishCommandHandler
-    (ILogger<CreateDishCommandHandler> logger, IMapper mapper,
-    IResturantRepository resturantRepository, IGenericRepository<> dishRepository)
+    (ILoggerHelper<CreateDishCommandHandler> logger, IMapperHelper mapper,
+    IGenericRepository<> dishRepository)
     : IRequestHandler<CreateDishCommand, int>
 {
     public async Task<int> Handle(CreateDishCommand request, CancellationToken cancellationToken)

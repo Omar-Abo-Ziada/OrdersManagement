@@ -3,7 +3,7 @@
 using MapsterMapper;
 
 namespace OrdersManagement.Application.Helpers;
-public class MapsterAdapter : IObjectMapper
+public class MapsterAdapter : IMapperHelper
 {
     private readonly IMapper _mapper;
 
@@ -17,8 +17,13 @@ public class MapsterAdapter : IObjectMapper
         return _mapper.Map<TDestination>(source);
     }
 
+    public TDestination Map<TSource, TDestination>(TSource source)
+    {
+        return _mapper.Map<TDestination>(source!);
+    }
+
     public TDestination Map<TSource, TDestination>(TSource source, TDestination destination)
     {
-        return _mapper.Map(source, destination);
+        return _mapper.Map(source!, destination);
     }
 }

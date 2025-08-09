@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using MediatR;
+using OrdersManagement.Application.Helpers;
 using MyResturants.Domain.Entities;
 using MyResturants.Domain.Exceptions;
 using MyResturants.Domain.Repositories;
@@ -8,8 +7,8 @@ using MyResturants.Domain.Repositories;
 namespace MyResturants.Application.Resturants.Commands.UpdateResturant;
 
 public class UpdateResturantCommandHandler
-    (ILogger<UpdateResturantCommandHandler> logger,
-    IMapper mapper,
+    (ILoggerHelper<UpdateResturantCommandHandler> logger,
+    IMapperHelper mapper,
     IResturantRepository resturantRepository) : IRequestHandler<UpdateResturantCommand>
 {
     public async Task Handle(UpdateResturantCommand request, CancellationToken cancellationToken)

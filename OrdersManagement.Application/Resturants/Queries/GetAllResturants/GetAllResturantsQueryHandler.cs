@@ -1,13 +1,12 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using MediatR;
+using OrdersManagement.Application.Helpers;
 using MyResturants.Application.Resturants.Dtos;
 using MyResturants.Domain.Repositories;
 
 namespace MyResturants.Application.Resturants.Queries.GetAllResturants;
 
 public class GetAllResturantsQueryHandler
-    (ILogger<GetAllResturantsQueryHandler> logger, IMapper mapper, IResturantRepository resturantRepository)
+    (ILoggerHelper<GetAllResturantsQueryHandler> logger, IMapperHelper mapper, IResturantRepository resturantRepository)
     : IRequestHandler<GetAllResturantsQuery, IEnumerable<ResturantDto>>
 {
     public async Task<IEnumerable<ResturantDto>> Handle(GetAllResturantsQuery request, CancellationToken cancellationToken)

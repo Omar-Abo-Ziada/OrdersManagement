@@ -1,14 +1,11 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using MediatR;
 using MyResturants.Application.Users;
-using MyResturants.Domain.Entities;
-using MyResturants.Domain.Repositories;
+using OrdersManagement.Application.Helpers;
 
 namespace MyResturants.Application.Resturants.Commands.CreateResturant;
 
-public class CreateResturantCommandHandler(ILogger<CreateResturantCommandHandler> logger ,
-    IMapper mapper , 
+public class CreateResturantCommandHandler(ILoggerHelper<CreateResturantCommandHandler> logger ,
+    IMapperHelper mapper , 
     IUserContext userContext,
     IResturantRepository resturantRepository): IRequestHandler<CreateResturantCommand, int>
 {

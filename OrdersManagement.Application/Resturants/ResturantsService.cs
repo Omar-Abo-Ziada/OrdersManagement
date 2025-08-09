@@ -1,13 +1,12 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
-using MyResturants.Application.Resturants.Dtos;
+﻿using MyResturants.Application.Resturants.Dtos;
 using MyResturants.Domain.Entities;
 using MyResturants.Domain.Repositories;
+using OrdersManagement.Application.Helpers;
 
 namespace MyResturants.Application.Resturants;
 
 internal class ResturantsService(IResturantRepository resturantRepository , 
-    ILogger<ResturantsService> logger , IMapper mapper) 
+    ILoggerHelper<ResturantsService> logger , IMapperHelper mapper) 
     : IResturantsService
 {
     public async Task<int> CreateAsync(CreateResturantDto createResturantDto)

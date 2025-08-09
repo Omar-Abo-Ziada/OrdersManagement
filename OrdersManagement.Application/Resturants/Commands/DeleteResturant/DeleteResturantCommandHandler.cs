@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using MediatR;
+using OrdersManagement.Application.Helpers;
 using MyResturants.Domain.Entities;
 using MyResturants.Domain.Exceptions;
 using MyResturants.Domain.Repositories;
@@ -8,7 +7,7 @@ using MyResturants.Domain.Repositories;
 namespace MyResturants.Application.Resturants.Commands.DeleteResturant;
 
 public class DeleteResturantCommandHandler
-    (ILogger<DeleteResturantCommandHandler> logger,
+    (ILoggerHelper<DeleteResturantCommandHandler> logger,
     IResturantRepository resturantRepository)
     : IRequestHandler<DeleteResturantCommand>
 {

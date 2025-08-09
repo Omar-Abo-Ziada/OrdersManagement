@@ -1,5 +1,4 @@
 ﻿using OrdersManagement.Domain.Entities.Product_Module;
-using OrdersManagement.Domain.Entities;
 
 namespace OrdersManagement.Domain.Entities.Order_Module;
 public class OrderItem : BaseEntity

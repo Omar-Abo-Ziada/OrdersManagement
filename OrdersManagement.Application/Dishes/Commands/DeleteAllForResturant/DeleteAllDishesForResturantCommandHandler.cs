@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging;
+using OrdersManagement.Application.Helpers;
 using MyResturants.Domain.Entities;
 using MyResturants.Domain.Exceptions;
 using MyResturants.Domain.Repositories;
@@ -7,7 +7,7 @@ using MyResturants.Domain.Repositories;
 namespace MyResturants.Application.Dishes.Commands.DeleteAllForResturant;
 
 public class DeleteAllDishesForResturantCommandHandler
-    (ILogger<DeleteAllDishesForResturantCommandHandler> logger,
+    (ILoggerHelper<DeleteAllDishesForResturantCommandHandler> logger,
     IResturantRepository resturantRepository ,
     IDishRepository dishRepository): IRequestHandler<DeleteAllDishesForResturantCommand>
 {

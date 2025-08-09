@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.Extensions.Logging;
+﻿using MediatR;
+using OrdersManagement.Application.Helpers;
 using MyResturants.Application.Dishes.Dtos;
 using MyResturants.Domain.Entities;
 using MyResturants.Domain.Exceptions;
@@ -9,7 +8,7 @@ using MyResturants.Domain.Repositories;
 namespace MyResturants.Application.Dishes.Queries.GetAllForResturant;
 
 public class GetAllForResturantQueryHandler
-    (ILogger<GetAllForResturantQueryHandler> logger, IMapper mapper,
+    (ILoggerHelper<GetAllForResturantQueryHandler> logger, IMapperHelper mapper,
     IResturantRepository resturantRepository)
     : IRequestHandler<GetAllForResturantQuery, IEnumerable<DishDto>>
 {

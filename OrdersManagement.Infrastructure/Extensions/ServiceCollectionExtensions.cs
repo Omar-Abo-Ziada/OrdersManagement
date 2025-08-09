@@ -9,6 +9,7 @@ using MyResturants.Infrastructure.Authorization.Requirements;
 using MyResturants.Infrastructure.Seeders;
 using OrdersManagement.Domain.Entities.User_Module;
 using OrdersManagement.Infrastructure.Presistance;
+using System.Diagnostics;
 
 namespace MyResturants.Infrastructure.Extensions;
 
@@ -22,7 +23,7 @@ public static class ServiceCollectionExtensions
         {
             options.UseSqlServer(connectionString);
             options.EnableSensitiveDataLogging();
-            options.LogTo(Console.WriteLine , LogLevel.Information);
+            options.LogTo(log => Debug.WriteLine(log), LogLevel.Information);
         });
 
         services.AddIdentityCore<User>()

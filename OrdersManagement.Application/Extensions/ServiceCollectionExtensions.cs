@@ -37,7 +37,8 @@ public static class ServiceCollectionExtensions
 
         //MapsterConfig.Configure();
         
-        services.AddScoped<IObjectMapper, MapsterAdapter>();
+        services.AddScoped<IMapperHelper, MapsterAdapter>();
+        services.AddScoped(typeof(ILoggerHelper<>), typeof(LoggerAdapter<>));
 
         services.AddValidatorsFromAssembly(assembly)
             .AddFluentValidationAutoValidation();
