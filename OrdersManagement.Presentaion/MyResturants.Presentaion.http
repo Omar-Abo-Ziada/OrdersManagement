@@ -1,0 +1,28 @@
+@MyResturants.Presentaion_HostAddress = https://localhost:7129
+
+GET {{MyResturants.Presentaion_HostAddress}}/api/resturants
+
+###
+
+GET {{MyResturants.Presentaion_HostAddress}}/api/resturants/5
+
+###
+
+
+POST {{MyResturants.Presentaion_HostAddress}}/register
+content-type:application/json
+{
+  "email" : "ahmed@gmail.com",
+  "password" :"Test@123"
+}
+
+###
+
+POST {{MyResturants.Presentaion_HostAddress}}/api/identity/login
+content-type:application/json
+{
+  "email" : "ahmed@gmail.com",
+  "password" :"Test@123"
+}
+
+###
