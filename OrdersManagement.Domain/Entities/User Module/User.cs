@@ -5,6 +5,8 @@ namespace OrdersManagement.Domain.Entities.User_Module;
 
 public class User : IdentityUser<int>
 {
+    public string FirstName { get; set; } = default!;
+    public string LastName { get; set; } = default!;
     public DateOnly? DateOfBirth { get; set; }
     public string? Nationality { get; set; }
 

@@ -1,10 +1,11 @@
-﻿using FluentValidation;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Mapster;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyResturants.Application.Resturants;
 using MyResturants.Application.Users;
+using OrdersManagement.Application.Common.Configuration;
+using OrdersManagement.Application.Common.Services;
 using OrdersManagement.Application.Helpers;
 using Serilog;
 
@@ -16,7 +17,7 @@ public static class ServiceCollectionExtensions
     {
         var assembly = typeof(ServiceCollectionExtensions).Assembly;
 
-        services.AddScoped<IResturantsService, ResturantsService>();
+        //services.AddScoped<IResturantsService, ResturantsService>();
         services.AddMediatR(config => config.RegisterServicesFromAssembly(assembly));
 
         Log.Logger = new LoggerConfiguration()
@@ -45,6 +46,12 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IUserContext, UserContext>();
         services.AddHttpContextAccessor();
+
+        // Configure JWT Settings
+        services.Configure<JWTSettings>(configuration.GetSection(JWTSettings.SectionName));
+
+        // Register JWT Token Service
+        services.AddScoped<IJwtTokenService, JwtTokenService>();
 
         return services;
     }

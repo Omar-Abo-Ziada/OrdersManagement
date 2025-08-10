@@ -1,4 +1,4 @@
-﻿namespace MyResturants.Infrastructure.Authorization;
+namespace MyResturants.Infrastructure.Authorization;
 
 public static class PolicyNames
 {

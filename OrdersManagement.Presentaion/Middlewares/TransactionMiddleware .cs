@@ -1,46 +1,45 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using OrdersManagement.Infrastructure.Presistance;
 
 namespace OrdersManagement.Presentaion.Middlewares;
 
-public class TransactionMiddleware
+public class TransactionMiddleware : IMiddleware
 {
-    private readonly DbContext _dbContext;
-
-    public TransactionMiddleware(DbContext dbContext)
+    private readonly ApplicationDbContext _context;
+    public TransactionMiddleware(ApplicationDbContext context)
     {
-        _dbContext = dbContext;
+        _context = context;
     }
-
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        // Only start transaction for HTTP methods that modify data
-        if (context.Request.Method is not ("POST" or "PUT" or "PATCH" or "DELETE"))
+        string method = context.Request.Method.ToUpper();
+
+        if (method == "POST" || method == "PUT" || method == "DELETE")
         {
-            await next(context);
-            return;
-        }
-
-        await using var transaction = await _dbContext.Database.BeginTransactionAsync();
-
-        try
-        {
-            await next(context);
-
-            // Only commit if status code is successful
-            if (context.Response.StatusCode is >= 200 and < 300)
+            var transaction = await _context.Database.BeginTransactionAsync();
+            try
             {
-                await _dbContext.SaveChangesAsync();
+                await next(context);
+                await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
+
             }
-            else
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
+                throw;
             }
         }
-        catch
+        else
         {
-            await transaction.RollbackAsync();
-            throw;
+            await next(context);
         }
+    }
+}
+// Extension method used to add the middleware to the HTTP request pipeline.
+public static class MiddlewareExtensions
+{
+    public static IApplicationBuilder UseTransactionMiddleware(this IApplicationBuilder builder)
+    {
+        return builder.UseMiddleware<TransactionMiddleware>();
     }
 }

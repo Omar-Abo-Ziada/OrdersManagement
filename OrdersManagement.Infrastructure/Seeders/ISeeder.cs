@@ -1,7 +1,7 @@
 ﻿
 namespace MyResturants.Infrastructure.Seeders;
 
-public interface IResturantSeeder
+public interface ISeeder
 {
     Task Seed(); // Implicitly public
 }

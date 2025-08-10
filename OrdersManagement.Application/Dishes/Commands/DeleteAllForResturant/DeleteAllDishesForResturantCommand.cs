@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿//using MediatR;
 
-namespace MyResturants.Application.Dishes.Commands.DeleteAllForResturant;
+//namespace MyResturants.Application.Dishes.Commands.DeleteAllForResturant;
 
-public class DeleteAllDishesForResturantCommand(int resturantId) : IRequest
-{
-    public int ResturantId { get; } = resturantId;
-}
+//public class DeleteAllDishesForResturantCommand(int resturantId) : IRequest
+//{
+//    public int ResturantId { get; } = resturantId;
+//}

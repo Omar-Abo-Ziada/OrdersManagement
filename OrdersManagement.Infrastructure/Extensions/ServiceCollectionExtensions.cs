@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,7 +31,8 @@ public static class ServiceCollectionExtensions
             .AddClaimsPrincipalFactory<ResturantsUserClaimsPrincipalFactory>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
-        services.AddScoped<IResturantSeeder, ResturantSeeder>();
+        services.AddScoped<ISeeder, RoleSeeder>();
+        services.AddScoped<RoleSeeder>();
 
         //services.AddScoped<IResturantRepository, ResturantRepositoy>();
         //services.AddScoped<IDishRepository, DishRepository>();

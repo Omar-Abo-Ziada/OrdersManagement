@@ -12,7 +12,7 @@ using OrdersManagement.Domain.Entities.User_Module;
 
 namespace OrdersManagement.Infrastructure.Presistance;
 
-internal class ApplicationDbContext : IdentityDbContext<User , IdentityRole<int> , int>
+public class ApplicationDbContext : IdentityDbContext<User , IdentityRole<int> , int>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {

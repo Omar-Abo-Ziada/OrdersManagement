@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
-using OrdersManagement.Application.Helpers;
-using MyResturants.Domain.Entities;
 using MyResturants.Domain.Exceptions;
+using OrdersManagement.Application.Helpers;
+using OrdersManagement.Domain.Entities.User_Module;
 
 namespace MyResturants.Application.Users.Commands.UpdateUserDetails;
 
