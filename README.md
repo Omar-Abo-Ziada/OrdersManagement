@@ -31,7 +31,7 @@ OrdersManagement.sln
 │  │  └─ Commands/                   # AssignUserRole, UnAssignUserRole, UpdateUserDetails
 │  ├─ Helpers/                       # Cross-cutting concern abstractions
 │  │  ├─ ILoggerHelper<T>           # Logging abstraction with adapter
-│  │  ├─ IObjectMapper              # Mapping abstraction (AutoMapper/Mapster)
+│  │  ├─ IMapperHelper              # Mapping abstraction (AutoMapper/Mapster)
 │  │  └─ IUserContext               # Current user context
 │  └─ Extensions/                    # DI registration for the application layer
 │
