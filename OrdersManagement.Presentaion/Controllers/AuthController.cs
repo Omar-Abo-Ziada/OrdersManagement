@@ -3,21 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using MyResturants.Application.Users.Commands.Login;
 using MyResturants.Application.Users.Commands.Register;
 using OrdersManagement.Application.Common.Responses;
-using System.Net;
+using OrdersManagement.Application.Helpers;
 
 namespace MyResturants.Presentaion.Controllers;
 
 [Route("api/[controller]")]
 [Produces("application/json")]
 [ApiController]
-public class AuthController : BaseController
+public class AuthController(IMediator mediator, IMapperHelper mapper)
+    : BaseController(mediator, mapper)
 {
-    private readonly IMediator _mediator;
-
-    public AuthController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
 
     /// <summary>
     /// Register a new user account
@@ -32,15 +27,8 @@ public class AuthController : BaseController
     public async Task<IActionResult> Register([FromBody] RegisterCommand command)
     {
         var result = await _mediator.Send(command);
-        
-        return result.StatusCode switch
-        {
-            HttpStatusCode.Created => Success(result.Data!, result.TokenDTO, result.Message, result.StatusCode),
-            HttpStatusCode.BadRequest => Failure(result.Message, result.Data, result.StatusCode, result.Errors),
-            HttpStatusCode.Conflict => Conflict(result.Message, result.Data),
-            HttpStatusCode.InternalServerError => InternalServerError(result.Message, result.Data),
-            _ => Failure(result.Message, result.Data, result.StatusCode, result.Errors)
-        };
+
+        return HandleResultAsync<RegisterResponse>(result);
     }
 
     /// <summary>
@@ -57,15 +45,7 @@ public class AuthController : BaseController
     public async Task<IActionResult> Login([FromBody] LoginCommand command)
     {
         var result = await _mediator.Send(command);
-        
-        return result.StatusCode switch
-        {
-            HttpStatusCode.OK => Success(result.Data!, result.TokenDTO, result.Message, result.StatusCode),
-            HttpStatusCode.BadRequest => Failure(result.Message, result.Data, result.StatusCode, result.Errors),
-            HttpStatusCode.Unauthorized => Unauthorized(result.Message, result.Data),
-            HttpStatusCode.Forbidden => Forbidden(result.Message, result.Data),
-            HttpStatusCode.InternalServerError => InternalServerError(result.Message, result.Data),
-            _ => Failure(result.Message, result.Data, result.StatusCode, result.Errors)
-        };
+
+        return HandleResultAsync<LoginResponse>(result);
     }
 }

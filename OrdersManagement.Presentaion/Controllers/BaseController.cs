@@ -1,12 +1,17 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OrdersManagement.Application.Common.Responses;
+using OrdersManagement.Application.Helpers;
 using System.Net;
 
 namespace MyResturants.Presentaion.Controllers;
 
 [ApiController]
-public abstract class BaseController : ControllerBase
+public abstract class BaseController(IMediator mediator , IMapperHelper mapper) : ControllerBase
 {
+    protected readonly IMediator _mediator = mediator;
+    protected readonly IMapperHelper _mapper = mapper;
+
     /// <summary>
     /// Returns a successful response with data
     /// </summary>
@@ -110,4 +115,21 @@ public abstract class BaseController : ControllerBase
     {
         return Failure(message, data, HttpStatusCode.Conflict);
     }
+
+    protected IActionResult HandleResultAsync<TResponse>(
+    CustomResultDTO<TResponse> result)
+    {
+        return result.StatusCode switch
+        {
+            HttpStatusCode.OK => Success(result.Data!, result.TokenDTO, result.Message, result.StatusCode),
+            HttpStatusCode.Created => Success(result.Data!, result.TokenDTO, result.Message, result.StatusCode),
+            HttpStatusCode.BadRequest => Failure(result.Message, result.Data, result.StatusCode, result.Errors),
+            HttpStatusCode.Unauthorized => Unauthorized(result.Message, result.Data),
+            HttpStatusCode.Forbidden => Forbidden(result.Message, result.Data),
+            HttpStatusCode.Conflict => Conflict(result.Message, result.Data),
+            HttpStatusCode.InternalServerError => InternalServerError(result.Message, result.Data),
+            _ => Failure(result.Message, result.Data, result.StatusCode, result.Errors)
+        };
+    }
+
 }
